@@ -19,7 +19,11 @@ class CreateContractsTable extends Migration
             $table->string('type');
             $table->date('start_date');
             $table->date('end_date');
-            $table->decimal('salary', 10, 2);
+            $table->decimal('salary',10,2);
+
+            $table->date('terminated_at')->nullable();
+            $table->string('termination_reason')->nullable();
+
             $table->timestamps();
         });
     }

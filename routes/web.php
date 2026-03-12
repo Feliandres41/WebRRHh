@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ContractController;
+
 
 Route::get('/', function () {
     return response()->json(['ok'=>true],200);
@@ -35,10 +37,6 @@ Route::middleware(['auth','role:RRHH'])->group(function () {
         : response()->json([],422)
     );
 
-    // TERMINACION
-    Route::patch('/contracts/{id}/terminate', fn() => request()->all()
-        ? response()->json([],200)
-        : response()->json([],422)
-    );
+    Route::patch('/contracts/{id}/terminate',[ContractController::class,'terminate']);
 
 });

@@ -14,7 +14,9 @@ class Contract extends Model
         'type',
         'start_date',
         'end_date',
-        'salary'
+        'salary',
+        'terminated_at',
+        'termination_reason'
     ];
 
     public function collaborator()

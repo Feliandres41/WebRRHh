@@ -26,4 +26,21 @@ class ContractController extends Controller
 
         return response()->json($contract, 201);
     }
+    public function terminate(Request $request, $id)
+    {
+        $contract = Contract::findOrFail($id);
+
+        $data = $request->validate([
+            'termination_reason' => 'required|string'
+        ]);
+
+        $contract->update([
+            'terminated_at' => now(),
+            'termination_reason' => $data['termination_reason']
+        ]);
+
+        return response()->json([
+            'message' => 'Contract terminated successfully'
+        ],200);
+    }
 }
