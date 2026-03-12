@@ -42,3 +42,18 @@ Route::delete('/collaborators/{id}', function ($id) {
 Route::patch('/collaborators/{id}/deactivate', function ($id) {
     return response()->json([], 200);
 });
+
+
+//Contratos
+Route::get('/contracts', fn () => response()->json([], 200));
+
+Route::get('/contracts/create', fn () => response()->json([], 200));
+
+Route::post('/contracts', function () {
+
+    if (empty(request()->all())) {
+        return response()->json([], 422);
+    }
+
+    return response()->json([], 201);
+});
