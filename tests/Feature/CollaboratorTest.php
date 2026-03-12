@@ -3,11 +3,35 @@
 namespace Tests\Feature;
 
 use Tests\TestCase;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Spatie\Permission\Models\Role;
 
 class CollaboratorTest extends TestCase
 {
     use RefreshDatabase;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->authenticateRRHH();
+    }
+
+    protected function authenticateRRHH()
+    {
+        Role::create([
+            'name' => 'RRHH',
+            'guard_name' => 'web'
+        ]);
+
+        $user = User::factory()->create();
+
+        $user->assignRole('RRHH');
+
+        $this->actingAs($user);
+    }
+
     public function test_can_list_collaborators()
     {
         $response = $this->get('/collaborators');
@@ -24,15 +48,9 @@ class CollaboratorTest extends TestCase
 
     public function test_can_create_collaborator()
     {
-        $data = [
-            "nombres" => "Juan",
-            "apellidos" => "Perez",
-            "tipo_documento" => "CC",
-            "numero_documento" => "12345678",
-            "fecha_nacimiento" => "1990-01-01"
-        ];
-
-        $response = $this->post('/collaborators', $data);
+        $response = $this->post('/collaborators', [
+            'name' => 'Juan Perez'
+        ]);
 
         $response->assertStatus(201);
     }
@@ -47,7 +65,7 @@ class CollaboratorTest extends TestCase
     public function test_can_update_collaborator()
     {
         $response = $this->put('/collaborators/1', [
-            "nombres" => "Juan actualizado"
+            'name' => 'Juan actualizado'
         ]);
 
         $response->assertStatus(200);
@@ -66,5 +84,4 @@ class CollaboratorTest extends TestCase
 
         $response->assertStatus(200);
     }
-
 }

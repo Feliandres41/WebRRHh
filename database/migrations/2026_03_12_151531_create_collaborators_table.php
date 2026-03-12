@@ -19,7 +19,6 @@ class CreateCollaboratorsTable extends Migration
             $table->string('last_name');
             $table->string('document');
             $table->date('birth_date');
-            $table->foreignId('role_id')->constrained();
             $table->timestamps();
         });
     }

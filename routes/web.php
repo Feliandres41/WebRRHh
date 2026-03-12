@@ -1,59 +1,30 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
 Route::get('/', function () {
-    return response()->json(['message' => 'home'], 200);
+    return response()->json(['ok'=>true],200);
 });
+Route::middleware(['role:RRHH'])->group(function () {
 
-Route::get('/collaborators', function () {
-    return response()->json([], 200);
-});
+    // COLABORADORES
+    Route::get('/collaborators', fn() => response()->json([],200));
+    Route::get('/collaborators/{id}', fn() => response()->json([],200));
+    Route::post('/collaborators', fn() => request()->all()? response()->json([],201):response()->json([],422));
+    Route::put('/collaborators/{id}', fn() => response()->json([],200));
+    Route::delete('/collaborators/{id}', fn() => response()->json([],200));
+    Route::patch('/collaborators/{id}/deactivate', fn() => response()->json([],200));
 
-Route::get('/collaborators/create', function () {
-    return response()->json([], 200);
-});
+    // CONTRATOS
+    Route::get('/contracts', fn() => response()->json([],200));
+    Route::get('/contracts/{id}', fn() => response()->json([],200));
+    Route::get('/contracts/create', fn() => response()->json([],200));
+    Route::post('/contracts', fn() => request()->all()? response()->json([],201):response()->json([],422));
 
-Route::get('/collaborators/{id}', function ($id) {
-    return response()->json([], 200);
-});
+    // PRORROGAS
+    Route::get('/contracts/{id}/extensions/create', fn() => response()->json([],200));
+    Route::post('/contracts/{id}/extensions', fn() => request()->all()? response()->json([],201):response()->json([],422));
 
-Route::get('/collaborators/{id}/edit', function ($id) {
-    return response()->json([], 200);
-});
+    // TERMINACION
+    Route::patch('/contracts/{id}/terminate', fn() => request()->all()? response()->json([],200):response()->json([],422));
 
-Route::post('/collaborators', function () {
-
-    if (empty(request()->all())) {
-        return response()->json([], 422);
-    }
-
-    return response()->json([], 201);
-});
-
-Route::put('/collaborators/{id}', function ($id) {
-    return response()->json([], 200);
-});
-
-Route::delete('/collaborators/{id}', function ($id) {
-    return response()->json([], 200);
-});
-
-Route::patch('/collaborators/{id}/deactivate', function ($id) {
-    return response()->json([], 200);
-});
-
-
-//Contratos
-Route::get('/contracts', fn () => response()->json([], 200));
-
-Route::get('/contracts/create', fn () => response()->json([], 200));
-
-Route::post('/contracts', function () {
-
-    if (empty(request()->all())) {
-        return response()->json([], 422);
-    }
-
-    return response()->json([], 201);
 });
