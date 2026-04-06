@@ -15,10 +15,10 @@ class CollaboratorTest extends TestCase
     {
         parent::setUp();
 
-        $this->authenticateRRHH();
+        $this->autenticarRRHH();
     }
 
-    protected function authenticateRRHH()
+    protected function autenticarRRHH()
     {
         Role::create([
             'name' => 'RRHH',
@@ -32,21 +32,21 @@ class CollaboratorTest extends TestCase
         $this->actingAs($user);
     }
 
-    public function test_can_list_collaborators()
+    public function test_puede_listar_colaboradores()
     {
         $response = $this->get('/collaborators');
 
         $response->assertStatus(200);
     }
 
-    public function test_can_show_single_collaborator()
+    public function test_puede_ver_un_colaborador()
     {
         $response = $this->get('/collaborators/1');
 
         $response->assertStatus(200);
     }
 
-    public function test_can_create_collaborator()
+    public function test_puede_crear_colaborador()
     {
         $response = $this->post('/collaborators', [
             'name' => 'Juan Perez'
@@ -55,14 +55,14 @@ class CollaboratorTest extends TestCase
         $response->assertStatus(201);
     }
 
-    public function test_validation_fails_when_data_missing()
+    public function test_falla_validacion_cuando_faltan_datos()
     {
         $response = $this->post('/collaborators', []);
 
         $response->assertStatus(422);
     }
 
-    public function test_can_update_collaborator()
+    public function test_puede_actualizar_colaborador()
     {
         $response = $this->put('/collaborators/1', [
             'name' => 'Juan actualizado'
@@ -71,14 +71,14 @@ class CollaboratorTest extends TestCase
         $response->assertStatus(200);
     }
 
-    public function test_can_delete_collaborator()
+    public function test_puede_eliminar_colaborador()
     {
         $response = $this->delete('/collaborators/1');
 
         $response->assertStatus(200);
     }
 
-    public function test_can_deactivate_collaborator()
+    public function test_puede_desactivar_colaborador()
     {
         $response = $this->patch('/collaborators/1/deactivate');
 

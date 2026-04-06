@@ -12,16 +12,18 @@ class CreateCollaboratorsTable extends Migration
      * @return void
      */
     public function up()
-    {
-        Schema::create('collaborators', function (Blueprint $table) {
-            $table->id();
-            $table->string('first_name');
-            $table->string('last_name');
-            $table->string('document');
-            $table->date('birth_date');
-            $table->timestamps();
-        });
-    }
+{
+    Schema::create('collaborators', function (Blueprint $table) {
+        $table->id();
+        $table->string('name');
+        $table->string('email')->unique();
+        $table->string('phone')->nullable();
+        $table->string('position')->nullable();
+        $table->boolean('status')->default(true);
+        $table->softDeletes();
+        $table->timestamps();
+    });
+}
 
     /**
      * Reverse the migrations.

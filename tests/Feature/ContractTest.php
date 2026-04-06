@@ -15,10 +15,10 @@ class ContractTest extends TestCase
     {
         parent::setUp();
 
-        $this->authenticateRRHH();
+        $this->autenticarRRHH();
     }
 
-    protected function authenticateRRHH()
+    protected function autenticarRRHH()
     {
         Role::create([
             'name' => 'RRHH',
@@ -32,21 +32,21 @@ class ContractTest extends TestCase
         $this->actingAs($user);
     }
 
-    public function test_can_list_contracts()
+    public function test_puede_listar_contratos()
     {
         $response = $this->get('/contracts');
 
         $response->assertStatus(200);
     }
 
-    public function test_can_show_contract_form()
+    public function test_puede_ver_formulario_de_contrato()
     {
         $response = $this->get('/contracts/create');
 
         $response->assertStatus(200);
     }
 
-    public function test_can_store_contract()
+    public function test_puede_guardar_contrato()
     {
         $response = $this->post('/contracts', [
             'type' => 'fixed',
@@ -56,7 +56,7 @@ class ContractTest extends TestCase
         $response->assertStatus(201);
     }
 
-    public function test_contract_validation_fails()
+    public function test_falla_validacion_de_contrato()
     {
         $response = $this->post('/contracts', []);
 

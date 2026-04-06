@@ -15,10 +15,10 @@ class ProrrogaTest extends TestCase
     {
         parent::setUp();
 
-        $this->authenticateRRHH();
+        $this->autenticarRRHH();
     }
 
-    protected function authenticateRRHH()
+    protected function autenticarRRHH()
     {
         Role::create([
             'name' => 'RRHH',
@@ -32,21 +32,21 @@ class ProrrogaTest extends TestCase
         $this->actingAs($user);
     }
 
-    public function test_can_view_contracts_for_extension()
+    public function test_puede_ver_contratos_para_prorroga()
     {
         $response = $this->get('/contracts');
 
         $response->assertStatus(200);
     }
 
-    public function test_can_access_extension_form()
+    public function test_puede_acceder_formulario_de_prorroga()
     {
         $response = $this->get('/contracts/1/extensions/create');
 
         $response->assertStatus(200);
     }
 
-    public function test_can_create_time_extension()
+    public function test_puede_crear_prorroga_de_tiempo()
     {
         $response = $this->post('/contracts/1/extensions', [
             'type' => 'time',
@@ -56,7 +56,7 @@ class ProrrogaTest extends TestCase
         $response->assertStatus(201);
     }
 
-    public function test_can_create_value_extension()
+    public function test_puede_crear_prorroga_de_valor()
     {
         $response = $this->post('/contracts/1/extensions', [
             'type' => 'value',
@@ -66,7 +66,7 @@ class ProrrogaTest extends TestCase
         $response->assertStatus(201);
     }
 
-    public function test_extension_validation_fails()
+    public function test_falla_validacion_de_prorroga()
     {
         $response = $this->post('/contracts/1/extensions', []);
 
