@@ -9,7 +9,7 @@ Permite gestionar información relacionada con empleados, roles y procesos bási
 
 Antes de instalar el proyecto asegúrate de tener instalado:
 
-- PHP >= 8.2
+- PHP = 8.4
 - Composer
 - Node.js >= 18
 - NPM
